@@ -1,0 +1,481 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ResQ AI - Emergency Assistance</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+
+        <div class="logo">
+            🚨 ResQ <span>AI</span>
+        </div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#dashboard">Dashboard</a>
+            <a href="#hospitals">Hospitals</a>
+            <a href="#assistant">AI Assistant</a>
+            <a href="#contacts">Contacts</a>
+        </nav>
+
+        <div class="system-status">
+            <span class="status-dot"></span>
+            <span id="apiStatus">Checking...</span>
+        </div>
+
+    </header>
+
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <span class="tag">SMART EMERGENCY ASSISTANCE</span>
+
+            <h1>
+                Help is just<br>
+                <span>one step away.</span>
+            </h1>
+
+            <p>
+                ResQ AI is an intelligent emergency assistance
+                platform designed to help people access location
+                support, nearby hospitals and emergency resources.
+            </p>
+
+            <div class="hero-buttons">
+
+                <button class="sos-button" onclick="openSOS()">
+                    🚨 Emergency SOS
+                </button>
+
+                <a href="#assistant" class="secondary-button">
+                    🤖 Talk to AI
+                </a>
+
+            </div>
+
+            <p class="warning-text">
+                Prototype only. SOS does not contact emergency services.
+            </p>
+
+        </div>
+
+
+        <div class="hero-card">
+
+            <div class="shield">🛡️</div>
+
+            <h2>Stay Safe With ResQ</h2>
+
+            <p>
+                Your emergency assistance dashboard
+                is ready.
+            </p>
+
+            <div class="hero-info">
+
+                <span>📍 Your Location</span>
+
+                <strong id="heroLocation">
+                    Not Detected
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DASHBOARD -->
+    <section class="section" id="dashboard">
+
+        <div class="section-heading">
+
+            <div>
+                <span class="tag">CONTROL CENTER</span>
+
+                <h2>Emergency Dashboard</h2>
+
+                <p>
+                    Manage emergency assistance from one place.
+                </p>
+            </div>
+
+            <button class="refresh-button" onclick="refreshDashboard()">
+                ↻ Refresh
+            </button>
+
+        </div>
+
+
+        <div class="dashboard-grid">
+
+
+            <!-- SOS -->
+            <div class="card">
+
+                <div class="card-icon">🚨</div>
+
+                <h3>SOS Emergency</h3>
+
+                <span class="safe-badge" id="sosStatus">
+                    SAFE
+                </span>
+
+                <p id="sosText">
+                    No emergency event recorded.
+                </p>
+
+                <button class="sos-button full-button"
+                    onclick="openSOS()">
+
+                    Activate SOS
+
+                </button>
+
+            </div>
+
+
+            <!-- LOCATION -->
+            <div class="card">
+
+                <div class="card-icon">📍</div>
+
+                <h3>Live Location</h3>
+
+                <p id="locationText">
+                    Location not detected.
+                </p>
+
+                <button class="primary-button full-button"
+                    onclick="detectLocation()">
+
+                    Detect My Location
+
+                </button>
+
+            </div>
+
+
+            <!-- HOSPITAL -->
+            <div class="card" id="hospitals">
+
+                <div class="card-icon">🏥</div>
+
+                <h3>Nearby Hospitals</h3>
+
+                <p id="hospitalStatus">
+                    Detect location to search hospitals.
+                </p>
+
+                <button class="primary-button full-button"
+                    onclick="findHospitals()">
+
+                    Find Hospitals
+
+                </button>
+
+                <ul id="hospitalList"></ul>
+
+            </div>
+
+
+            <!-- HISTORY -->
+            <div class="card">
+
+                <div class="card-icon">📋</div>
+
+                <h3>Emergency History</h3>
+
+                <p>Recent demo emergency events.</p>
+
+                <ul id="historyList"></ul>
+
+                <button class="link-button"
+                    onclick="clearHistory()">
+
+                    Clear History
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- MAP SECTION -->
+    <section class="section map-section">
+
+        <div class="map-content">
+
+            <span class="tag">LOCATION SERVICES</span>
+
+            <h2>Emergency Map</h2>
+
+            <p>
+                View your current location using the map service.
+            </p>
+
+            <div id="mapContainer">
+
+                📍 Detect your location to view the map.
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- QUICK ACTIONS -->
+    <section class="section">
+
+        <span class="tag">QUICK ACCESS</span>
+
+        <h2>Emergency Quick Actions</h2>
+
+        <div class="quick-grid">
+
+            <button onclick="quickMessage('I need first aid information.')">
+                🩹 First Aid
+            </button>
+
+            <button onclick="detectLocation()">
+                📍 Find My Location
+            </button>
+
+            <button onclick="quickMessage('I need medical assistance.')">
+                🏥 Medical Help
+            </button>
+
+            <button onclick="quickMessage('There has been an accident.')">
+                🚗 Accident Assistance
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- AI ASSISTANT -->
+    <section class="section assistant-section" id="assistant">
+
+        <div class="assistant-info">
+
+            <span class="tag">INTELLIGENT ASSISTANCE</span>
+
+            <h2>Meet ResQ AI Assistant</h2>
+
+            <p>
+                Ask questions and get basic emergency
+                guidance through the ResQ AI interface.
+            </p>
+
+            <p class="warning-text">
+                AI cannot replace emergency professionals.
+                Call 112 for immediate danger in India.
+            </p>
+
+        </div>
+
+
+        <div class="chat-card">
+
+            <div class="chat-header">
+
+                <div class="ai-avatar">🤖</div>
+
+                <div>
+                    <h3>ResQ AI</h3>
+                    <span>Emergency Assistant</span>
+                </div>
+
+            </div>
+
+
+            <div class="chat-messages" id="chatMessages">
+
+                <div class="bot-message">
+
+                    Hello! Welcome to ResQ AI.
+
+                    How can I help you today?
+
+                </div>
+
+            </div>
+
+
+            <form id="chatForm">
+
+                <input
+                    type="text"
+                    id="chatInput"
+                    placeholder="Type your message..."
+                    maxlength="1000"
+                    required
+                >
+
+                <button type="submit">
+                    ➤
+                </button>
+
+            </form>
+
+            <button class="voice-button" onclick="startVoice()">
+                🎙️ Voice Input
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- CONTACTS -->
+    <section class="section" id="contacts">
+
+        <span class="tag">TRUSTED PEOPLE</span>
+
+        <h2>Emergency Contacts</h2>
+
+        <p>
+            Add trusted people whose details you may need
+            during an emergency.
+        </p>
+
+
+        <div class="contact-card">
+
+            <form id="contactForm">
+
+                <input
+                    type="text"
+                    id="contactName"
+                    placeholder="Contact Name"
+                    maxlength="80"
+                    required
+                >
+
+                <input
+                    type="tel"
+                    id="contactPhone"
+                    placeholder="Phone Number"
+                    maxlength="30"
+                    required
+                >
+
+                <input
+                    type="text"
+                    id="contactRelation"
+                    placeholder="Relationship"
+                    maxlength="50"
+                >
+
+                <button type="submit">
+                    + Add Contact
+                </button>
+
+            </form>
+
+
+            <ul id="contactsList"></ul>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <div class="footer-logo">
+            🚨 ResQ AI
+        </div>
+
+        <p>
+            Intelligent Emergency Assistance Platform
+        </p>
+
+        <p>
+            © 2026 ResQ AI. All Rights Reserved.
+        </p>
+
+        <p>
+            India Emergency Number:
+            <a href="tel:112">112</a>
+        </p>
+
+        <small>
+            Prototype only. No emergency dispatch functionality.
+        </small>
+
+    </footer>
+
+
+    <!-- SOS MODAL -->
+    <div class="modal hidden" id="sosModal">
+
+        <div class="modal-content">
+
+            <h2>🚨 Emergency SOS</h2>
+
+            <p>
+                This action records a demo event only.
+                It does not contact emergency services.
+            </p>
+
+            <select id="sosCategory">
+
+                <option>General</option>
+                <option>Medical</option>
+                <option>Accident</option>
+                <option>Safety concern</option>
+                <option>Other</option>
+
+            </select>
+
+            <textarea
+                id="sosDetails"
+                placeholder="Describe your situation..."
+            ></textarea>
+
+            <div class="modal-buttons">
+
+                <button class="sos-button" onclick="confirmSOS()">
+                    Confirm Demo SOS
+                </button>
+
+                <button class="primary-button" onclick="closeSOS()">
+                    Cancel
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div id="toast"></div>
+
+
+    <script src="app.js"></script>
+
+</body>
+</html>
+
